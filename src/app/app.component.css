@@ -1,0 +1,79 @@
+.box-shadow
+{
+        -webkit-box-shadow: 0 3px 9px 0 rgba(0,0,0,0.10), 0 0 0 1px rgba(0,0,0,0.04);
+        box-shadow: 0 3px 9px 0 rgba(0,0,0,0.10), 0 0 0 1px rgba(0,0,0,0.04);
+}
+
+.main-container
+{
+    display: flex;
+    flex-wrap: nowrap ;
+    align-items: flex-start;
+}
+
+.my-context
+{
+    width: 200px;
+}
+
+.my-content
+{
+    padding: 10px;
+}
+
+.toolbar-spacer
+{
+    flex: 1 1 auto;
+}
+
+.img-circle {
+    border-radius: 50%;
+    height: 32px;
+    width: 32px;
+}
+
+.mainsidenav
+{
+    width: 270px;
+}
+
+.maincontent
+{
+ /* test */
+}
+
+.mat-list-icon {
+    color: rgba(0, 0, 0, 0.54);
+  }
+
+  .sidenavContainer {
+    height: 100%;
+}
+
+/deep/ .mat-sidenav-transition .mat-sidenav-backdrop.mat-sidenav-shown {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.close-icon {
+    cursor: pointer;
+    margin-top: 9px;
+}
+
+.top-nav {
+    height: 64px;
+    position: fixed;
+    top: 0px;
+}
+
+.router-container {
+    width: 100%;
+    overflow: auto;
+    position: absolute;
+    bottom: 0;
+    top: 64px;
+}
+
+.nav-icon {
+    padding: 0 15px;
+    cursor: pointer;
+}
