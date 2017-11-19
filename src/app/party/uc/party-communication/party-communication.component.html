@@ -1,0 +1,33 @@
+<div>
+
+  <form [formGroup]="communicationForm" novalidate>
+    <div fxLayout="column" fxLayoutAlign="space-around start">
+
+      <mat-form-field>
+        <input matInput placeholder="email" formControlName="email" email>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput placeholder="Telefoon" formControlName="phone">
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput placeholder="Telefoon bij noodsituaties" formControlName="emergency_phone">
+      </mat-form-field>
+
+    </div>
+  </form>
+
+  <mat-action-row>
+      <button mat-button [disabled]="communicationForm.pristine" (click)="cancelCommunication()">Annuleren</button>
+      <button mat-button [disabled]="communicationForm.pristine" (click)="saveCommunication()">Opslaan</button>
+    </mat-action-row>
+
+
+    <form [formGroup]="formGroup">
+        
+            <dynamic-material-form [group]="formGroup"
+                                    [model]="formModel"></dynamic-material-form>
+                                    
+        </form>
+</div>

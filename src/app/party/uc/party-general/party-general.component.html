@@ -1,0 +1,55 @@
+<div *ngIf="patientOrginal != null">
+  <form [formGroup]="patientForm" novalidate>
+
+    <div class="flex-container">
+
+      <div class="flex-container" >
+        <mat-form-field>
+          <input matInput placeholder="Naam" formControlName="firstname">
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput placeholder="Familienaam" formControlName="lastname">
+        </mat-form-field>
+      </div>
+
+      <mat-form-field>
+        <input matInput placeholder="Straat" formControlName="street">
+      </mat-form-field>
+
+      <div>
+        <mat-form-field>
+          <input matInput placeholder="Postcode" formControlName="zip">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Gemeente" formControlName="city">
+        </mat-form-field>
+      </div>
+
+      <mat-form-field>
+        <input matInput [matDatepicker]="picker" placeholder="Geboortedatum" formControlName="birthdate">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <span matSuffix> {{ this.age }} jaar </span>
+      </mat-form-field>
+
+      <br />
+
+      <mat-checkbox formControlName="active">Actief</mat-checkbox>
+
+      <br />
+      <br />
+
+    </div>
+
+    <!-- <p>Form value: {{ patientForm.value | json }}</p>
+      <p>Form status: {{ patientForm.status | json }}</p> -->
+
+  </form>
+
+  <mat-action-row>
+    <button mat-button [disabled]="patientForm.pristine" (click)="cancel()">Annuleren</button>
+    <button mat-button [disabled]="patientForm.pristine || patientForm.status != 'VALID'" (click)="save()">Opslaan</button>
+  </mat-action-row>
+
+</div>

@@ -1,0 +1,12 @@
+<div *ngIf="authService.user$ | async; let user; else showLogin">
+  <p>
+    Welkom bij uw patiënten dossier
+  </p>
+</div>
+
+
+<ng-template #showLogin>
+  <p>
+    Gelieve eerst aan te melden
+  </p>
+</ng-template>

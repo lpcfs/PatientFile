@@ -1,0 +1,22 @@
+<mat-card class="errorCard">
+  <mat-card-header>
+    <div mat-card-avatar>
+      <mat-icon class="errorIcon">error</mat-icon>
+    </div>
+    <mat-card-title>Aanmelden</mat-card-title>
+    <mat-card-subtitle>Er is een fout opgetreden tijdens het aanmelden</mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-content>
+    <div style="color:salmon">
+      <br />
+      <div>{{authService.exception.code}}</div>
+      <br />
+      <div>{{authService.exception.message}}</div>
+    </div>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button (click)="cancel()">CANCEL</button>
+    <button mat-button (click)="tryAgain()">TRY AGAIN</button>
+  </mat-card-actions>
+</mat-card>

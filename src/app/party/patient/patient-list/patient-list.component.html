@@ -1,0 +1,28 @@
+
+<mat-slider thumbLabel="true" min="100" max="800" step="10" value="250" (change)="fnChangeSlider($event)"></mat-slider>
+
+<app-loading-spin *ngIf="showSpinner"></app-loading-spin>
+
+<button mat-button (click)="add()" >add</button>
+
+
+
+<div class="card-container">
+  <mat-card class="patient-card" *ngFor="let item of items | async " [ngStyle]="cardStyle">
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image"></div>
+      <mat-card-title>{{item.name}}</mat-card-title>
+      <mat-card-subtitle>{{item.street}}&nbsp;</mat-card-subtitle>
+    </mat-card-header>
+    <img class="puppy-image" mat-card-image  src="{{item.url}}" alt="Photo of a {{item.name}}">
+    <mat-card-content>
+      <p>
+          {{item.street}}
+      </p>
+    </mat-card-content>
+    <mat-card-actions>
+      <a mat-button routerLink="/patient/{{item.id}}">AANPASSEN</a>
+      <a mat-button (click)="remove(item)">GEDAAN</a>
+    </mat-card-actions>
+  </mat-card>
+</div>

@@ -1,0 +1,16 @@
+.errorCard
+{
+    margin: 20px;
+    padding: 50px;
+}
+
+.example-header-image {
+    background-image: url('http://material.angular.io/assets/img/examples/shiba1.jpg');
+    background-size: cover;
+  }
+
+  .errorIcon
+  {
+      font-size: 2.5em;
+      color: salmon;
+  }

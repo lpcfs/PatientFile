@@ -1,0 +1,63 @@
+<h3>
+  {{ partyGeneral.patientName }}&nbsp;
+</h3>
+
+
+<mat-accordion>
+  <mat-expansion-panel [expanded]="true">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Persoonlijke gegevens
+      </mat-panel-title>
+      <mat-panel-description>
+        {{ partyGeneral.patientName }}
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <app-party-general #partyGeneral [id]="this.id" ></app-party-general>
+
+  </mat-expansion-panel>
+
+
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      Voorschriften
+    </mat-expansion-panel-header>
+
+    <p></p>
+
+    <mat-action-row>
+      <button mat-button>Opslaan</button>
+    </mat-action-row>
+
+  </mat-expansion-panel>
+
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      Verzorgers
+    </mat-expansion-panel-header>
+
+    <p></p>
+
+    <mat-action-row>
+      <button mat-button>Opslaan</button>
+    </mat-action-row>
+
+  </mat-expansion-panel>
+
+  <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Communicatie
+        </mat-panel-title>
+        <mat-panel-description>
+          {{ communication.summary }}
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <app-party-communication #communication></app-party-communication>
+
+  
+    </mat-expansion-panel>
+
+</mat-accordion>
