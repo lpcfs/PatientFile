@@ -46,7 +46,9 @@ import { PartyGeneralComponent } from './party/uc/party-general/party-general.co
 import { PartyCommunicationComponent } from './party/uc/party-communication/party-communication.component';
 
 import { DynamicFormsCoreModule } from "@ng-dynamic-forms/core";
-import { DynamicFormsMaterialUIModule } from '@ng-dynamic-forms/ui-material'
+import { DynamicFormsMaterialUIModule } from '@ng-dynamic-forms/ui-material';
+import { TextMaskModule } from 'angular2-text-mask';
+
 
 
 @NgModule({
@@ -100,7 +102,8 @@ import { DynamicFormsMaterialUIModule } from '@ng-dynamic-forms/ui-material'
     FlexLayoutModule,
 
     DynamicFormsCoreModule.forRoot(), 
-    DynamicFormsMaterialUIModule
+    DynamicFormsMaterialUIModule,
+    TextMaskModule
   ],
   providers: [AuthService, CanActivateService, { provide: LocationStrategy, useClass: HashLocationStrategy }],
   bootstrap: [AppComponent]

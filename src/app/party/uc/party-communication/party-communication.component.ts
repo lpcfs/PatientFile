@@ -13,68 +13,71 @@ import {
   DynamicFormControlModel, DynamicFormService,
   DynamicCheckboxModel,
   DynamicInputModel,
-  DynamicRadioGroupModel
+  DynamicRadioGroupModel,
+  DynamicFormGroupModel,
+  DynamicTextAreaModel,
+  DynamicTimePickerModel,
+  DynamicCheckboxGroupModel,
+  DynamicDatePickerModel,
+  DynamicSelectModel
 } from "@ng-dynamic-forms/core";
 
 export const MY_FORM_MODEL: DynamicFormControlModel[] = [
-  
-      new DynamicInputModel({
-  
-          id: "sampleInput",
-          label: "Sample Input",
-          maxLength: 42,
-          placeholder: "Sample input"
-      }),
-  
-      new DynamicRadioGroupModel<string>({
-  
-          id: "sampleRadioGroup",
-          label: "Sample Radio Group",
-          options: [
-              {
-                  label: "Option 1",
-                  value: "option-1",
-              },
-              {
-                  label: "Option 2",
-                  value: "option-2"
-              },
-              {
-                  label: "Option 3",
-                  value: "option-3"
-              }
-          ],
-          value: "option-3"
-      }),
-  
-      new DynamicCheckboxModel({
-  
-          id: "sampleCheckbox",
-          label: "I do agree"
-      })
-  ];
+
+  new DynamicInputModel(
+    {
+      id: "email",
+      placeholder: "Email",
+      validators: {
+        required: null
+      },
+      errorMessages: {
+        required: "{{ placeholder }} is verplicht"
+      }
+    }
+  ),
+  new DynamicInputModel(
+    {
+      id: "phone",
+      placeholder: "Telefoon",
+      validators: {
+        required: null
+      },
+      errorMessages: {
+        required: "{{ placeholder }} is verplicht"
+      }
+    }
+  ),
+  new DynamicInputModel(
+    {
+      id: "phoneEmengency",
+      placeholder: "Telefoon bij noodgevallen",
+      validators: {
+      }
+    }
+  )
+
+];
 
 
 @Component({
   selector: 'app-party-communication',
   templateUrl: './party-communication.component.html',
   styleUrls: ['./party-communication.component.css'],
-  host: {'(window:keydown)': 'hotkeys($event)'},
+  host: { '(window:keydown)': 'hotkeys($event)' },
 })
 export class PartyCommunicationComponent implements OnInit {
   @Output() summary: string
 
   formModel: DynamicFormControlModel[] = MY_FORM_MODEL;
   formGroup: FormGroup;
-  
-  id: string;
 
-  public communicationForm: FormGroup;
+  id: string;
 
   communicationDoc: AngularFirestoreDocument<communication>;
   communication: Observable<communication>;
   communicationOriginal: communication;
-  
+
   constructor(private route: ActivatedRoute,
     private router: Router,
     @Inject(FormBuilder) private fb: FormBuilder,
@@ -82,19 +85,9 @@ export class PartyCommunicationComponent implements OnInit {
     private afs: AngularFirestore,
     private formService: DynamicFormService
   ) {
-
+    // https://coryrylan.com/blog/angular-form-builder-and-validation-management
     this.formGroup = this.formService.createFormGroup(this.formModel);
-    
-    this.createForm();
-
   }
-
-  hotkeys(event){
-    if (event.keyCode == 83 && event.ctrlKey){
-      this.saveCommunication();
-      return false;
-    }
- }
 
   ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id');
@@ -110,31 +103,27 @@ export class PartyCommunicationComponent implements OnInit {
       this.summary = `${this.communicationOriginal.email}`
 
       //this.patientForm.patchValue(v);
-      this.communicationForm.reset(this.communicationOriginal);
+      this.formGroup.reset(this.communicationOriginal);
     });
   }
 
-  createForm() {
-
-    // https://coryrylan.com/blog/angular-form-builder-and-validation-management
-    this.communicationForm = this.fb.group(
-      {
-        email: ['', Validators.required],
-        phone: ['', Validators.required],
-        emergency_phone:  ['', Validators.required],
-      });
-
+  hotkeys(event) {
+    if (event.keyCode == 83 && event.ctrlKey) {
+      this.save();
+      return false;
+    }
   }
 
-  saveCommunication() {
-    if (this.communicationForm.status != "VALID") return;
-    this.communicationDoc.set(this.communicationForm.value).then(() => {
+
+  save() {
+    if (this.formGroup.status != "VALID") return;
+    this.communicationDoc.set(this.formGroup.value).then(() => {
 
     })
   }
 
-  cancelCommunication() {
-    this.communicationForm.reset(this.communicationOriginal);
+  cancel() {
+    this.formGroup.reset(this.communicationOriginal);
   }
 
 };
