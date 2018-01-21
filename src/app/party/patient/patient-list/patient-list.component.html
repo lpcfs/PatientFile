@@ -1,11 +1,12 @@
-
-<mat-slider thumbLabel="true" min="100" max="800" step="10" value="250" (change)="fnChangeSlider($event)"></mat-slider>
-
+<!-- <mat-slider thumbLabel="true" min="100" max="800" step="10" value="250" (change)="fnChangeSlider($event)">
+</mat-slider> -->
+<div class=content-title>
+    Overzicht van puppies&nbsp;
+  </div>
+  
 <app-loading-spin *ngIf="showSpinner"></app-loading-spin>
 
-<button mat-button (click)="add()" >add</button>
-
-
+<button mat-button (click)="add()">Nieuwe Puppy toevoegen</button>
 
 <div class="card-container">
   <mat-card class="patient-card" *ngFor="let item of items | async " [ngStyle]="cardStyle">
@@ -22,7 +23,7 @@
     </mat-card-content>
     <mat-card-actions>
       <a mat-button routerLink="/patient/{{item.id}}">AANPASSEN</a>
-      <a mat-button (click)="remove(item)">GEDAAN</a>
+      <a mat-button (click)="remove(item)">VERWIJDER</a>
     </mat-card-actions>
   </mat-card>
-</div>
+</div> 

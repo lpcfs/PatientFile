@@ -7,6 +7,11 @@ import { AngularFireDatabase } from 'angularfire2/database';
 import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { PatientId, Patient, communication } from '../patient';
 import { Observable } from 'rxjs/Observable';
+import { MenuService } from '../../../services/menu.service';
+import { SHORTCUTMENU, ACTIONMENU } from './actionmenu';
+import { Subscription } from 'rxjs/Subscription';
+import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
+import { menu } from '../../../services/menu.model';
 
 
 @Component({
@@ -15,6 +20,24 @@ import { Observable } from 'rxjs/Observable';
   styleUrls: ['./patient-detail.component.css']
 })
 export class PatientDetailComponent implements OnInit {
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    @Inject(FormBuilder) private fb: FormBuilder,
+    public dialog: MatDialog,
+    private afs: AngularFirestore,
+    private menuService: MenuService) {
+
+    this.createForm();
+
+
+    this._subscription = this.menuService.action.subscribe( (event: menu) => {
+      console.log(event);
+    });
+    // 
+    
+  }
+
   patientName: string;
   communicationForm: FormGroup;
   id: string;
@@ -22,16 +45,6 @@ export class PatientDetailComponent implements OnInit {
   communicationDoc: AngularFirestoreDocument<communication>;
   communication: Observable<communication>;
   communicationOriginal: communication;
-
-  constructor(private route: ActivatedRoute,
-    private router: Router,
-    @Inject(FormBuilder) private fb: FormBuilder,
-    public dialog: MatDialog,
-    private afs: AngularFirestore) {
-
-    this.createForm();
-
-  }
 
   ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id');
@@ -47,6 +60,18 @@ export class PatientDetailComponent implements OnInit {
       //this.patientForm.patchValue(v);
       this.communicationForm.reset(this.communicationOriginal);
     });
+
+    this.menuService.loadActionMenu(ACTIONMENU);
+    this.menuService.loadShortcutMenu(SHORTCUTMENU);
+
+
+  }
+
+  private _subscription: Subscription;
+
+  ngOnDestroy () {
+    //this._subscription.unsubscribe();
+    this._subscription.unsubscribe();
   }
 
   createForm() {

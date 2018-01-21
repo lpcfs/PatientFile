@@ -32,8 +32,7 @@ export class PartyCommunicationComponent implements OnInit {
   communicationOriginal: communication;
 
 
-
-  constructor( 
+  constructor(
     @Inject(FormBuilder) private fb: FormBuilder,
     @Inject(ActivatedRoute) private route: ActivatedRoute,
     @Inject(Router) private router: Router,
@@ -46,11 +45,11 @@ export class PartyCommunicationComponent implements OnInit {
 
   ngOnInit() {
     this.formGroup = this.formService.createFormGroup(this.formModel);
-    
+
     this.id = this.route.snapshot.paramMap.get('id');
 
     this.query_path = `patient/${this.id}/communication/1`;
-    
+
     // --- patient communication
     this.communicationDoc = this.afs.doc<communication>(this.query_path);
     this.communication = this.communicationDoc.valueChanges();
@@ -59,10 +58,13 @@ export class PartyCommunicationComponent implements OnInit {
       if (!v) return;
       this.communicationOriginal = v;
 
-      this.summary = `${this.communicationOriginal.email}`
+      if (this.communicationOriginal.comm)
+      {
+        this.summary = `${this.communicationOriginal.comm.email}`
+      }
 
       //this.patientForm.patchValue(v);
-      this.formGroup.reset(this.communicationOriginal);
+      this.formGroup.reset(v);
     });
   }
 
@@ -97,12 +99,12 @@ class GenericFormComponent<T> implements OnInit {
 
   formModel: DynamicFormControlModel[] = MY_FORM_MODEL;
   formGroup: FormGroup;
-  
+
   protected firestoreDocument: AngularFirestoreDocument<T>;
   protected observableOf: Observable<T>;
   protected original: T;
 
-  constructor(   
+  constructor(
     @Inject(FormBuilder) private fb: FormBuilder,
     @Inject(ActivatedRoute) private route: ActivatedRoute,
     @Inject(Router) private router: Router,
@@ -129,13 +131,13 @@ class GenericFormComponent<T> implements OnInit {
     });
   }
 
-  hotkeys(event) {
-    if (event.keyCode == 83 && event.ctrlKey) {
-      this.save();
-      return false;
-    }
-  }
-
+  // focus in foucus out development
+  // hotkeys(event) {
+  //   if (event.keyCode == 83 && event.ctrlKey) {
+  //     this.save();
+  //     return false;
+  //   }
+  // }
 
   save() {
     if (this.formGroup.status != "VALID") return;

@@ -3,20 +3,65 @@
 @import url(https://fonts.googleapis.com/icon?family=Material+Icons);
 @import url(https://fonts.googleapis.com/css?family=Roboto:300,400,500);
 
-body{
-    margin: 0;
-    background-color: whitesmoke;
-    font-family: Roboto, Verdana, Geneva, Tahoma, sans-serif
-}
-
-html, body, material-app, mat-sidenav-container, .my-content {
+html, body {
     margin: 0;
     width: 100%;
     height: 100%;
+    box-sizing: border-box;
   }
 
-  .my-content {
-      margin-top: 10px;
+body{
+    margin: 0;
+    background-color: whitesmoke;
+    font-family: Roboto, Verdana, Geneva, Tahoma, sans-serif;
+    overflow: hidden;
+}
+  
+  app-root
+  {
+    margin: 0;
+    display: flex;
+    flex-flow: column;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+  }
+
+  * {
+    box-sizing: border-box; 
+  }
+
+  #main {
+    display: flex;
+    flex: 1 1 auto;
+  }
+  #main > article {
+    flex: 1;
+  }
+  #main > nav, 
+  #main > aside {
+    flex: 0 1 auto;
+    /* background: rgb(189, 189, 60); */
+  }
+  #main > nav {
+    order: -1;
+  }
+  header, footer {
+    /* background: yellowgreen; */
+    height: auto;
+    z-index: 1;
+  }
+  footer, article, nav {
+    padding: 5px;
+  }
+  article
+  {
+    padding: 5px;
+    overflow-y: scroll;
+  }
+  aside
+  {
+    padding: 0px;
   }
 
   .content-title
@@ -32,7 +77,17 @@ html, body, material-app, mat-sidenav-container, .my-content {
       margin: 0;
       padding: 0;
   }
-  
+
+  /* .full-width
+  {
+      width: 100%
+  }
+
+  .half-width
+  {
+      width: 33%
+  } */
+
   /* nav {
       padding: 3rem;
   }

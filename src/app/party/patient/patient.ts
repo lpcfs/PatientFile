@@ -1,19 +1,25 @@
 
 
 export interface Patient {
+    name: string,
     firstname: string,
     lastname: string,
-    street:string,
+    street: string,
     zip: string,
     city: string,
     bold: string,
     birthdate: string,
-    url }
+    url: any
+}
 
 export interface PatientId extends Patient { id: string; }
 
 export interface communication {
-    email: string,
-    phone: string
+
+    comm: {
+        email: string,
+        phone: string
+    }
+
 }
 

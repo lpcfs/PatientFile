@@ -4,7 +4,24 @@
         box-shadow: 0 3px 9px 0 rgba(0,0,0,0.10), 0 0 0 1px rgba(0,0,0,0.04);
 }
 
+
+.main-header
+{
+    position: fixed;
+    top:0;
+    width: 100%
+}
+
 .main-container
+{
+    display: block;
+    height: 100%;
+    position: relative;
+    overflow-y: auto;
+    outline: none;
+}
+
+.sub-container
 {
     display: flex;
     flex-wrap: nowrap ;
@@ -35,11 +52,6 @@
 .mainsidenav
 {
     width: 270px;
-}
-
-.maincontent
-{
- /* test */
 }
 
 .mat-list-icon {
@@ -77,3 +89,18 @@
     padding: 0 15px;
     cursor: pointer;
 }
+
+.fill-height-or-more
+{
+    display: flex;
+    flex-direction: column;
+}
+
+.fill-height-or-more > div {
+    /* these are the flex items */
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  }
+

@@ -6,6 +6,11 @@ import * as firebase from 'firebase/app';
 import { MatSliderChange } from '@angular/material';
 import { Patient, PatientId } from '../patient';
 import { AngularFireDatabase } from 'angularfire2/database';
+import { ActivatedRoute, Router } from '@angular/router';
+import { SHORTCUTMENU, ACTIONMENU } from './actionmenu';
+import { MenuService } from '../../../services/menu.service';
+import { Subscription } from 'rxjs/Subscription';
+import { menu } from '../../../services/menu.model';
 
 
 @Component({
@@ -14,6 +19,25 @@ import { AngularFireDatabase } from 'angularfire2/database';
   styleUrls: ['./patient-list.component.css']
 })
 export class PatientListComponent implements OnInit {
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    public db: AngularFirestore,
+    private menuService: MenuService) {
+      this._subscription = this.menuService.action.subscribe( (event: menu) => {
+        //if (event.action == "NEW_PUPPY") return this.add();
+        
+        console.log(event);
+      });
+  }
+
+  private _subscription: Subscription;
+  
+    ngOnDestroy () {
+      //this._subscription.unsubscribe();
+      this._subscription.unsubscribe();
+    }
+    
   items: Observable<any[]>;
   cardStyle: any = {'width': '300px'};
 
@@ -23,7 +47,7 @@ export class PatientListComponent implements OnInit {
 
   ngOnInit() {
     
-    var itemCollection = this.db.collection<Patient>('items');
+    var itemCollection = this.db.collection<Patient>('patient');
     // .snapshotChanges() returns a DocumentChangeAction[], which contains
     // a lot of information about "what happened" with each change. If you want to
     // get the data and the id use the map operator.
@@ -41,11 +65,8 @@ export class PatientListComponent implements OnInit {
 
     // this.items.subscribe(() => this.showSpinner = false);
 
-    console.log("nginit");
-  }
-
-  constructor(public db: AngularFirestore) {
-
+    this.menuService.loadActionMenu(ACTIONMENU);
+    this.menuService.loadShortcutMenu(SHORTCUTMENU);
   }
 
   fnChangeSlider($event: MatSliderChange)
@@ -57,12 +78,14 @@ export class PatientListComponent implements OnInit {
   add()
   {
     this.count++;
-    var itemCollection = this.db.collection<Patient>('items');
-    //itemCollection.add({lastname: "yes " + this.count.toString(), street:"street", url:""});
+    var itemCollection = this.db.collection<any>('patient');
+    itemCollection.add({}).then((item) => {
+       this.router.navigateByUrl(`/patient/${item.id}`);
+    });
   }
   remove(item: PatientId)
   {
-    var doc = this.db.doc<PatientId>(`item/${item.id}`);
+    var doc = this.db.doc<PatientId>(`patient/${item.id}`);
     var docValues = doc.valueChanges();
     doc.delete().then(()=>{console.log('ok')}).catch((e)=>{console.log("", e)});
   }

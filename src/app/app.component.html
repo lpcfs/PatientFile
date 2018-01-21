@@ -1,11 +1,10 @@
 <!-- primary content -->
-<div class="maincontent">
+<header>
   <mat-toolbar style="background-color: white;" class="box-shadow">
     <mat-toolbar-row>
       <button mat-icon-button (click)="sidenavToggle()">
         <mat-icon>menu</mat-icon>
       </button>
-
       <span>{{title}}</span>
       <span class="toolbar-spacer"></span>
       <div *ngIf="authService.user$ | async; let user; else showLogin">
@@ -26,16 +25,17 @@
       </button>
     </mat-toolbar-row>
   </mat-toolbar>
-
-  <div class="main-container">
-    <div #leftmenu class="my-context" style="display: block">
+</header>
+<div id="main">
+  <nav>
+    <div #leftmenu class="menu">
       <mat-list dense>
         <h3 mat-subheader>WAT TE DOEN</h3>
 
         <mat-nav-list>
-          <mat-list-item *ngFor="let link of actions">
+          <mat-list-item *ngFor="let link of menuService.actionmenu | async"  (click)="clickListItem(link)">
             <mat-icon mat-list-icon>{{link.icon}}</mat-icon>
-            <a matLine routerLink="{{ link.link }}">{{ link.name }}</a>
+            <span matLine>{{ link.name }}</span>
           </mat-list-item>
         </mat-nav-list>
 
@@ -45,21 +45,22 @@
         <h3 mat-subheader>WAAR NAAR TOE</h3>
 
         <mat-nav-list>
-          <mat-list-item *ngFor="let link of shortcuts">
+          <mat-list-item *ngFor="let link of menuService.shortcutmenu | async" (click)="clickListItem(link)">
             <mat-icon mat-list-icon>{{link.icon}}</mat-icon>
-            <a matLine routerLink="{{ link.link }}" (click)="chechHide()">{{ link.name }}</a>
+            <span matLine>{{ link.name }}</span>
           </mat-list-item>
         </mat-nav-list>
 
       </mat-list>
     </div>
 
-    <div class="my-content">
-      <router-outlet></router-outlet>
-    </div>
-  </div>
-
+  </nav>
+  <article>
+    <router-outlet></router-outlet>
+  </article>
+  <aside></aside>
 </div>
+<footer>Ready</footer>
 
 
 <ng-template #showLogin>

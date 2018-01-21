@@ -48,6 +48,7 @@ import { PartyCommunicationComponent } from './party/uc/party-communication/part
 import { DynamicFormsCoreModule } from "@ng-dynamic-forms/core";
 import { DynamicFormsMaterialUIModule } from '@ng-dynamic-forms/ui-material';
 import { TextMaskModule } from 'angular2-text-mask';
+import { MenuService } from './services/menu.service';
 
 
 
@@ -64,7 +65,7 @@ import { TextMaskModule } from 'angular2-text-mask';
     PatientDetailComponent,
     CoolChartComponent,
     PartyGeneralComponent,
-    PartyCommunicationComponent,
+    PartyCommunicationComponent
   ],
   imports: [
     BrowserModule,
@@ -105,7 +106,12 @@ import { TextMaskModule } from 'angular2-text-mask';
     DynamicFormsMaterialUIModule,
     TextMaskModule
   ],
-  providers: [AuthService, CanActivateService, { provide: LocationStrategy, useClass: HashLocationStrategy }],
+  providers: [
+    AuthService, 
+    CanActivateService, 
+    { provide: LocationStrategy, useClass: HashLocationStrategy },
+    MenuService
+    ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

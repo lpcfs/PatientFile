@@ -2,6 +2,9 @@ import { Component, ViewChild } from '@angular/core';
 import { AuthService } from './services/auth.service';
 import { MatDrawer, MatButton } from '@angular/material';
 import { MediaChange, ObservableMedia } from "@angular/flex-layout";
+import { Router } from '@angular/router';
+import { MenuService } from './services/menu.service';
+import { menu } from './services/menu.model';
 
 @Component({
   selector: 'app-root',
@@ -18,59 +21,39 @@ export class AppComponent {
 
   actions = [
     {
-      name: 'Nieuwe Patient',
+      name: 'Nieuwe puppy',
       icon: 'home',
       link: '/home',
+      action: 'NEW_PUPPY',
       updated: new Date('2/20/16'),
-    },
-    {
-      name: 'Nieuwe Planning',
-      icon: 'folder',
-      link: '/patienten/overzicht',
-      updated: new Date('1/18/16'),
-    }
-    ,
-    {
-      name: 'Nieuwe Briefing',
-      icon: 'star',
-      link: '/home',
-      updated: new Date('1/18/16'),
     }
   ];
 
-  shortcuts = [
-    {
-      name: 'Patienten',
-      icon: 'home',
-      link: 'home2',
-      updated: new Date('2/20/16'),
-    },
-    {
-      name: 'Plannings',
-      icon: 'folder',
-      link: 'patienten/overzicht',
-      updated: new Date('1/18/16'),
-    }
-    ,
-    {
-      name: 'Graph',
-      icon: 'star',
-      link: 'chart',
-      updated: new Date('1/18/16'),
-    }
-  ];
-
-
-  constructor(public authService: AuthService) {
+  constructor(
+    public authService: AuthService,
+    private router: Router,
+    public menuService: MenuService) {
   }
 
   showInfo(link: any) {
     console.log(link);
   }
 
-  chechHide() {
-    if (this.sidenav.mode == "over" || this.sidenav.mode == "push") {
-      this.sidenav.close();
+  clickMenuItem() {
+    // if (this.sidenav.mode == "over" || this.sidenav.mode == "push") {
+    //   this.sidenav.close();
+    // }
+  }
+
+  clickListItem(menuitem: menu): void {
+    if (menuitem.link != null)
+    {
+       this.router.navigateByUrl(menuitem.link).then(() => {
+       });
+    }
+    else if (menuitem.action != null)
+    {
+      this.menuService.doExecuteMenu(menuitem);
     }
   }
 
